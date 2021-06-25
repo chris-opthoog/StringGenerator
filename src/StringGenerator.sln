@@ -7,12 +7,16 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StringGenerator", "StringGe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StringGenerator.Client", "StringGenerator.Client\StringGenerator.Client.csproj", "{836C3A05-5D10-41EE-B653-5E53497330ED}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "_build", "..\build\_build.csproj", "{282B2128-9DE3-4E78-BCF3-0120BF19F84B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{282B2128-9DE3-4E78-BCF3-0120BF19F84B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{282B2128-9DE3-4E78-BCF3-0120BF19F84B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8850BB42-2F2D-4D7C-AE51-E8ACDD3C2408}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8850BB42-2F2D-4D7C-AE51-E8ACDD3C2408}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8850BB42-2F2D-4D7C-AE51-E8ACDD3C2408}.Release|Any CPU.ActiveCfg = Release|Any CPU

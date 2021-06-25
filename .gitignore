@@ -3,3 +3,6 @@
 /src/StringGenerator.Client/obj
 /src/StringGenerator/bin
 /src/StringGenerator/obj
+/.nuke
+/build/bin
+/build/obj
