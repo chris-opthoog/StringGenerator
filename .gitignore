@@ -6,3 +6,5 @@
 /.nuke
 /build/bin
 /build/obj
+/build/_build.csproj.DotSettings
+/build/.editorconfig
