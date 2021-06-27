@@ -6,8 +6,6 @@ using System.Text;
 
 namespace StringGenerator {
 
-
-    
     public class CryptoStringGenerator : StringGeneratorBase {
 
         private const int ALPHA_SIZE = 26;
