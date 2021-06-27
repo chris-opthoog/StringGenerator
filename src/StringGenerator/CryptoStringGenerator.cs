@@ -8,9 +8,10 @@ namespace StringGenerator {
 
     public class CryptoStringGenerator : StringGeneratorBase {
 
-        private const int ALPHA_SIZE = 26;
-        private const int NUM_SIZE = 10;
-        private const int SYMBOL_SIZE = 30;
+
+        public CryptoStringGenerator() : base() {
+
+        }
 
         public override string Next(int len = 32, bool useSymbols = true) {
 
