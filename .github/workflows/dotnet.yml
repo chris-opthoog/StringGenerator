@@ -14,18 +14,17 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+
     - name: Setup .NET 5.0
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 5.0.x
 
-    steps:
-    - uses: actions/checkout@v2
     - name: Setup netcoreapp3.1
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: netcoreapp3.1
-        
+
     - name: Pre-build
       run: sudo chmod +x ./build.sh
 
