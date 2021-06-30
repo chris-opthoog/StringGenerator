@@ -20,11 +20,6 @@ jobs:
       with:
         dotnet-version: 5.0.x
 
-    - name: Install GitVersion
-      uses: gittools/actions/gitversion/setup@v0.9.7
-      with:
-        versionSpec: '5.x'
-
     - name: Pre-build
       run: sudo chmod +x ./build.sh
 
