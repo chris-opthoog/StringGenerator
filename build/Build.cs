@@ -56,9 +56,11 @@ class Build : NukeBuild
             DotNetBuild(s => s
                 .SetProjectFile(Solution)
                 .SetConfiguration(Configuration)
+
                 .SetAssemblyVersion(GitVersion.AssemblySemVer)
                 .SetFileVersion(GitVersion.AssemblySemFileVer)
                 .SetInformationalVersion(GitVersion.InformationalVersion)
+
                 .EnableNoRestore());
         });
 
@@ -69,6 +71,11 @@ class Build : NukeBuild
             DotNetPack(s => s
               .SetProject(Solution.GetProject("StringGenerator"))
               .SetConfiguration(Configuration)
+
+              .SetAssemblyVersion(GitVersion.AssemblySemVer)
+              .SetFileVersion(GitVersion.AssemblySemFileVer)
+              .SetInformationalVersion(GitVersion.InformationalVersion)
+
               .EnableNoBuild()
               .EnableNoRestore()
               .SetNoDependencies(true)
