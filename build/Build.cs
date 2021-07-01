@@ -86,9 +86,7 @@ class Build : NukeBuild {
               .SetProject(Solution.GetProject("StringGenerator"))
               .SetConfiguration(Configuration)
 
-              .SetAssemblyVersion(GitVersion.AssemblySemVer)
-              .SetFileVersion(GitVersion.AssemblySemFileVer)
-              .SetInformationalVersion(GitVersion.InformationalVersion)
+              .SetVersion(GitVersion.NuGetVersionV2)
 
               .EnableNoBuild()
               .EnableNoRestore()
