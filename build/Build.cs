@@ -60,7 +60,6 @@ class Build : NukeBuild {
                 .EnableNoRestore());
         });
 
-
     Target Test => _ => _
         .DependsOn(Compile)
         .Executes(() => {
@@ -69,13 +68,9 @@ class Build : NukeBuild {
                 .SetProjectFile(Solution)
                 .SetConfiguration(Configuration)
 
-
-
                 .EnableNoBuild()
                 .EnableNoRestore()
-
             );
-
         });
 
     Target Pack => _ => _
@@ -100,12 +95,6 @@ class Build : NukeBuild {
        .Requires(() => Configuration.Equals(Configuration.Release))
        .Executes(() => {
 
-           var pathEnvVar = System.Environment.GetEnvironmentVariable("PATH");
-           Logger.Info(pathEnvVar);
-
-           var v = System.Environment.GetEnvironmentVariable("NUGET_API_KEY");
-           Logger.Info(v);
-
            GlobFiles(OutputDirectory, "*.nupkg")
                .NotEmpty()
                .Where(x => !x.EndsWith("symbols.nupkg"))
@@ -118,5 +107,4 @@ class Build : NukeBuild {
                    );
                });
        });
-
 }
