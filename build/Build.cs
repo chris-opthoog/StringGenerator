@@ -80,6 +80,8 @@ class Build : NukeBuild
            var pathEnvVar = System.Environment.GetEnvironmentVariable("PATH");
            Logger.Info(pathEnvVar);
 
+           var v = System.Environment.GetEnvironmentVariable("NUGET_API_KEY");
+           Logger.Info(v);
 
            GlobFiles(OutputDirectory, "*.nupkg")
                .NotEmpty()
