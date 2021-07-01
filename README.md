@@ -11,3 +11,7 @@ Generate a single random string using the default for length (32) and inclusion 
 ```
 var randomString = new CryptoStringGenerator().Next();
 ```
+
+## NuGet
+
+NuGet package; https://www.nuget.org/packages/StringGenerator/
