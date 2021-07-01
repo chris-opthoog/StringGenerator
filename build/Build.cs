@@ -83,7 +83,7 @@ class Build : NukeBuild
                    DotNetNuGetPush(s => s
                        .SetTargetPath(x)
                        .SetSource("https://api.nuget.org/v3/index.json")
-                       .SetApiKey(EnvironmentInfo.GetVariable<string>("NUGET_API_KEY"))
+                       .SetApiKey(System.Environment.GetEnvironmentVariable("NUGET_API_KEY"))
                        .SetSkipDuplicate(true)
                    );
                });
