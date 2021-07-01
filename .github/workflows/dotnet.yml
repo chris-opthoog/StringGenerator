@@ -30,5 +30,7 @@ jobs:
       run: sudo chmod +x ./build.sh
 
     - name: Build and Publish NuGet
+      env:
+          NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
       run: ./build.sh Push
 
