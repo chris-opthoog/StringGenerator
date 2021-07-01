@@ -6,7 +6,7 @@ Use StringGenerator to generate random strings of specified length. The library 
 
 ### Single Random String
 
-Generate a single random string using the default for length and inclusion of symbols.
+Generate a single random string using the default for length (32) and inclusion of symbols (true).
 
 ```
 var randomString = new CryptoStringGenerator().Next();
