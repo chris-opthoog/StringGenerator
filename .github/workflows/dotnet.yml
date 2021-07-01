@@ -29,5 +29,6 @@ jobs:
     - name: Pre-build
       run: sudo chmod +x ./build.sh
 
-    - name: Build
-      run: ./build.sh
+    - name: Build and Publish NuGet
+      run: ./build.sh Push
+

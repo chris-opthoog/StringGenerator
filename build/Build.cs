@@ -7,6 +7,7 @@ using Nuke.Common.ProjectModel;
 using Nuke.Common.Tools.DotNet;
 using Nuke.Common.Tools.GitVersion;
 using Nuke.Common.Utilities.Collections;
+using System.Linq;
 using static Nuke.Common.IO.FileSystemTasks;
 using static Nuke.Common.IO.PathConstruction;
 using static Nuke.Common.Tools.DotNet.DotNetTasks;
@@ -48,7 +49,6 @@ class Build : NukeBuild
         .DependsOn(Restore)
         .Executes(() =>
         {
-
             DotNetBuild(s => s
                 .SetProjectFile(Solution)
                 .SetConfiguration(Configuration)
@@ -57,5 +57,35 @@ class Build : NukeBuild
                 .SetInformationalVersion(GitVersion.InformationalVersion)
                 .EnableNoRestore());
         });
+
+    Target Pack => _ => _
+        .DependsOn(Compile)
+        .Executes(() => {
+
+            DotNetPack(s => s
+              .SetProject(Solution.GetProject("StringGenerator"))
+              .SetConfiguration(Configuration)
+              .EnableNoBuild()
+              .EnableNoRestore()
+              .SetNoDependencies(true)
+              .SetOutputDirectory(OutputDirectory));
+        });
+
+    Target Push => _ => _
+       .DependsOn(Pack)
+       
+       .Requires(() => Configuration.Equals(Configuration.Release))
+       .Executes(() => {
+           GlobFiles(OutputDirectory, "*.nupkg")
+               .NotEmpty()
+               .Where(x => !x.EndsWith("symbols.nupkg"))
+               .ForEach(x => {
+                   DotNetNuGetPush(s => s
+                       .SetTargetPath(x)
+                       .SetSource("https://api.nuget.org/v3/index.json")
+                       .SetApiKey("oy2n7jlt3zyxau36rzmaop3czplkmeye5p7dtwx4mxe5wy")
+                   );
+               });
+       });
 
 }
