@@ -6,10 +6,14 @@ using System.Text;
 
 namespace StringGenerator {
 
-    public class CryptoStringGenerator : StringGeneratorBase {
+    public class CryptoStringGenerator : StringGeneratorBase, IDisposable {
 
+        private readonly RandomNumberGenerator _rng;
+        private bool disposedValue;
 
-        public CryptoStringGenerator() : base() {}
+        public CryptoStringGenerator() : base() {
+            _rng = RandomNumberGenerator.Create();
+        }
 
         public override string Next(int len = 32, bool useSymbols = true) {
 
@@ -20,16 +24,14 @@ namespace StringGenerator {
             var sb = new StringBuilder(len);
             int charSpace = ALPHA_SIZE + NUM_SIZE + (useSymbols ? SYMBOL_SIZE : 0);
 
-            using (var rng = RandomNumberGenerator.Create()) {
+            var rndBytes = new byte[len];
+            _rng.GetBytes(rndBytes);
 
-                var rndBytes = new byte[len];
-                rng.GetBytes(rndBytes);
-
-                for (var i = 0u; i < len; i++) {
-                    int index = rndBytes[i] % charSpace;
-                    sb.Append(ALPHABET[index]);
-                }
+            for (var i = 0u; i < len; i++) {
+                int index = rndBytes[i] % charSpace;
+                sb.Append(ALPHABET[index]);
             }
+
             return sb.ToString();
         }
 
@@ -42,6 +44,32 @@ namespace StringGenerator {
             }
 
             return rndStrings.AsEnumerable();
+        }
+
+        protected virtual void Dispose(bool disposing) {
+            if (!disposedValue) {
+                if (disposing) {
+                    // TODO: dispose managed state (managed objects)
+                    _rng.Dispose();
+                }
+
+                // TODO: free unmanaged resources (unmanaged objects) and override finalizer
+                // TODO: set large fields to null
+                disposedValue = true;
+            }
+        }
+
+        // // TODO: override finalizer only if 'Dispose(bool disposing)' has code to free unmanaged resources
+        // ~CryptoStringGenerator()
+        // {
+        //     // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+        //     Dispose(disposing: false);
+        // }
+
+        public void Dispose() {
+            // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
         }
     }
 }

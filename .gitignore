@@ -9,3 +9,6 @@
 /build/.editorconfig
 /.nuke/temp
 /output
+/src/StringGenerator.Tests/bin
+/src/StringGenerator.Tests/obj
+/.nuke/temp
