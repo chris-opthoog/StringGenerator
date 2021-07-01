@@ -9,9 +9,7 @@ namespace StringGenerator {
     public class CryptoStringGenerator : StringGeneratorBase {
 
 
-        public CryptoStringGenerator() : base() {
-
-        }
+        public CryptoStringGenerator() : base() {}
 
         public override string Next(int len = 32, bool useSymbols = true) {
 
