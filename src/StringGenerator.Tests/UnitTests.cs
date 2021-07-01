@@ -45,7 +45,7 @@ namespace StringGenerator.Tests {
 
             // assert
             Assert.That(s.Count, Is.EqualTo(size), $"Batch size should be {size}");
-            Assert.That(s[0].Length, Is.EqualTo(len), $"Default random string length should be {len}");
+            Assert.That(s[0].Length, Is.EqualTo(len), $"Random string length should be {len}");
         }
     }
 }
