@@ -76,6 +76,11 @@ class Build : NukeBuild
        
        .Requires(() => Configuration.Equals(Configuration.Release))
        .Executes(() => {
+
+           var pathEnvVar = System.Environment.GetEnvironmentVariable("PATH");
+           Logger.Info(pathEnvVar);
+
+
            GlobFiles(OutputDirectory, "*.nupkg")
                .NotEmpty()
                .Where(x => !x.EndsWith("symbols.nupkg"))
