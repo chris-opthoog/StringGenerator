@@ -17,6 +17,7 @@ namespace StringGenerator {
                 throw new ArgumentException("Length must be greater that zero", nameof(len));
             }
 
+
             var sb = new StringBuilder(len);
             int charSpace = ALPHA_SIZE + NUM_SIZE + (useSymbols ? SYMBOL_SIZE : 0);
 
