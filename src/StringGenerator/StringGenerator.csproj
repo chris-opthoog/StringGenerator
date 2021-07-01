@@ -2,11 +2,6 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <PackageId>StringGenerator</PackageId>
-    <Version>0.0.1</Version>
-    <Authors>Chris Opthoog</Authors>
-    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <Company>MYOB</Company>
     
   </PropertyGroup>
 
