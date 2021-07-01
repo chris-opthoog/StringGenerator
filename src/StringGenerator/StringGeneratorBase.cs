@@ -13,7 +13,6 @@ namespace StringGenerator {
         protected const int NUM_SIZE = 10;
         protected const int SYMBOL_SIZE = 28;
 
-
         public int CharSpace => ALPHA_SIZE + NUM_SIZE + SYMBOL_SIZE; 
 
         public StringGeneratorBase() {
