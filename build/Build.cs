@@ -84,6 +84,7 @@ class Build : NukeBuild
                        .SetTargetPath(x)
                        .SetSource("https://api.nuget.org/v3/index.json")
                        .SetApiKey("oy2n7jlt3zyxau36rzmaop3czplkmeye5p7dtwx4mxe5wy")
+                       .SetSkipDuplicate(true)
                    );
                });
        });
