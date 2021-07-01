@@ -21,6 +21,10 @@ class Build : NukeBuild
     [Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")]
     readonly Configuration Configuration = IsLocalBuild ? Configuration.Debug : Configuration.Release;
 
+    [Parameter]
+    [Secret]
+    readonly string NugetApiKey;
+
     [Solution] readonly Solution Solution;
 
     [GitRepository] readonly GitRepository GitRepository;
@@ -90,7 +94,7 @@ class Build : NukeBuild
                    DotNetNuGetPush(s => s
                        .SetTargetPath(x)
                        .SetSource("https://api.nuget.org/v3/index.json")
-                       .SetApiKey(System.Environment.GetEnvironmentVariable("NUGET_API_KEY"))
+                       .SetApiKey(NugetApiKey)
                        .SetSkipDuplicate(true)
                    );
                });
