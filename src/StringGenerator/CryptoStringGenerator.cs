@@ -20,7 +20,7 @@ namespace StringGenerator {
             }
 
             var sb = new StringBuilder(len);
-            int charSpace = ALPHA_SIZE + ALPHA_SIZE + NUM_SIZE + (useSymbols ? SYMBOL_SIZE : 0);
+            int charSpace = ALPHA_SIZE + NUM_SIZE + (useSymbols ? SYMBOL_SIZE : 0);
 
             using (var rng = RandomNumberGenerator.Create()) {
 
