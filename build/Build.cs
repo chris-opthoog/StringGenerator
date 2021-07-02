@@ -81,7 +81,7 @@ class Build : NukeBuild {
         .DependsOn(Test)
         .Executes(() =>    {
 
-            var a = Path.Combine(Path.GetDirectoryName(Solution.GetProject("StringGenerator.Benchmarks").Path), $"bin{Path.DirectorySeparatorChar}Release{Path.DirectorySeparatorChar}net5.0{Path.DirectorySeparatorChar}StringGenerator.Benchmarks.exe");
+            var a = Path.Combine(Path.GetDirectoryName(Solution.GetProject("StringGenerator.Benchmarks").Path), $"bin{Path.DirectorySeparatorChar}Release{Path.DirectorySeparatorChar}net5.0{Path.DirectorySeparatorChar}StringGenerator.Benchmarks.dll");
             Logger.Info(a);
 
             ProcessTasks.StartProcess(a).AssertWaitForExit();
