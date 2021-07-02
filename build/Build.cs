@@ -8,6 +8,7 @@ using Nuke.Common.Tooling;
 using Nuke.Common.Tools.DotNet;
 using Nuke.Common.Tools.GitVersion;
 using Nuke.Common.Utilities.Collections;
+using System;
 using System.IO;
 using System.Linq;
 using static Nuke.Common.IO.FileSystemTasks;
@@ -80,7 +81,7 @@ class Build : NukeBuild {
         .DependsOn(Test)
     .Executes(() =>    {
 
-        var a = Path.Combine(Path.GetDirectoryName(Solution.GetProject("StringGenerator.Benchmarks").Path), "bin\\Release\\net5.0\\StringGenerator.Benchmarks.exe");
+        var a = Path.Combine(Path.GetDirectoryName(Solution.GetProject("StringGenerator.Benchmarks").Path), $"bin{Path.PathSeparator}Release{Path.PathSeparator}net5.0{Path.PathSeparator}StringGenerator.Benchmarks.exe");
         ProcessTasks.StartProcess(a).AssertWaitForExit();
 
     });
