@@ -77,7 +77,7 @@ class Build : NukeBuild {
 
     
     Target Benchmark => _ => _
-        .DependsOn(Compile)
+        .DependsOn(Test)
     .Executes(() =>    {
 
         var a = Path.Combine(Path.GetDirectoryName(Solution.GetProject("StringGenerator.Benchmarks").Path), "bin\\Release\\net5.0\\StringGenerator.Benchmarks.exe");
@@ -86,7 +86,7 @@ class Build : NukeBuild {
     });
 
     Target Pack => _ => _
-        .DependsOn(Test)
+        .DependsOn(Benchmark)
         .Executes(() => {
 
             DotNetPack(s => s
