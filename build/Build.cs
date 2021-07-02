@@ -80,6 +80,7 @@ class Build : NukeBuild {
         .DependsOn(Compile)
     .Executes(() =>    {
 
+        var a = Path.Combine(Path.GetDirectoryName(Solution.GetProject("StringGenerator.Benchmarks").Path), "bin\\Release\\net5.0\\StringGenerator.Benchmarks.exe");
         ProcessTasks.StartProcess(a).AssertWaitForExit();
 
     });
