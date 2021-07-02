@@ -75,6 +75,7 @@
           "items": {
             "type": "string",
             "enum": [
+              "Benchmark",
               "Clean",
               "Compile",
               "Pack",
@@ -94,6 +95,7 @@
           "items": {
             "type": "string",
             "enum": [
+              "Benchmark",
               "Clean",
               "Compile",
               "Pack",

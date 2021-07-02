@@ -16,6 +16,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Nuke.Common" Version="5.2.1" />
+    <PackageDownload Include="benchmarkdotnet.tool" Version="[0.12.1]" />
     <PackageDownload Include="GitVersion.Tool" Version="[5.6.7]" />
   </ItemGroup>
 

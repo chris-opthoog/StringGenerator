@@ -4,9 +4,11 @@ using Nuke.Common.Execution;
 using Nuke.Common.Git;
 using Nuke.Common.IO;
 using Nuke.Common.ProjectModel;
+using Nuke.Common.Tooling;
 using Nuke.Common.Tools.DotNet;
 using Nuke.Common.Tools.GitVersion;
 using Nuke.Common.Utilities.Collections;
+using System.IO;
 using System.Linq;
 using static Nuke.Common.IO.FileSystemTasks;
 using static Nuke.Common.IO.PathConstruction;
@@ -72,6 +74,15 @@ class Build : NukeBuild {
                 .EnableNoRestore()
             );
         });
+
+    
+    Target Benchmark => _ => _
+        .DependsOn(Compile)
+    .Executes(() =>    {
+
+        ProcessTasks.StartProcess(a).AssertWaitForExit();
+
+    });
 
     Target Pack => _ => _
         .DependsOn(Test)

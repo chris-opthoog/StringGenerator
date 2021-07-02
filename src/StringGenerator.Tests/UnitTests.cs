@@ -26,8 +26,8 @@ namespace StringGenerator.Tests {
             // arrange
             using var g = new CryptoStringGenerator();
 
-
             // act+assert
+            Assert.Throws<ArgumentException>(() => g.Next(0, true));
             Assert.Throws<ArgumentException>(() => g.Next(-1, true));
 
         }

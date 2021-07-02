@@ -12,3 +12,6 @@
 /src/StringGenerator.Tests/bin
 /src/StringGenerator.Tests/obj
 
+/BenchmarkDotNet.Artifacts/results
+/src/StringGenerator.Benchmarks/bin
+/src/StringGenerator.Benchmarks/obj

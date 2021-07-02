@@ -2,7 +2,7 @@
 
 namespace StringGenerator.Client {
     public class Options {
-        [Option('b', "batch", Required = false, Default = 1, HelpText = "The number of passwords to generate.")]
+        [Option('b', "batch", Required = false, Default = 10, HelpText = "The number of passwords to generate.")]
         public int BatchSize { get; set; }
 
         [Option('l', "length", Required = false, Default = 32, HelpText = "The length of the passwords to generate.")]
