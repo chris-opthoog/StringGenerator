@@ -89,7 +89,7 @@ class Build : NukeBuild {
     });
 
     Target Pack => _ => _
-        .DependsOn(Benchmark)
+        .DependsOn(Test)
         .Executes(() => {
 
             DotNetPack(s => s
