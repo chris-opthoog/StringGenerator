@@ -15,6 +15,18 @@ namespace StringGenerator {
             _rng = RandomNumberGenerator.Create();
         }
 
+        public static string GetNext(int length = 32, bool useSymbols = true) {
+            using var g = new CryptoStringGenerator();
+            var rs = g.Next(length, useSymbols);
+            return rs;
+        }
+
+        public static IEnumerable<string> GetNextBatch(int batchLength = 1, int length = 32, bool useSymbols = true) {
+            using var g = new CryptoStringGenerator();
+            var batch = g.NextBatch(batchLength, length, useSymbols);
+            return batch;
+        }
+
         public override string Next(int length = 32, bool useSymbols = true) {
 
             if (length <= 0) {
