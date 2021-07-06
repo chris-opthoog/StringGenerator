@@ -97,7 +97,9 @@ class Build : NukeBuild {
               .SetConfiguration(Configuration)
 
               .SetVersion(GitVersion.NuGetVersionV2)
-
+              .SetPackageProjectUrl("https://github.com/chris-opthoog/StringGenerator")
+              .SetDescription("Generate random strings. Use the CryptoStringGenerator if using for passwords.")
+              .SetAuthors(new string[] { "Chris Opthoog (chris.opthoog@myob.com)" })
               .EnableNoBuild()
               .EnableNoRestore()
               .SetNoDependencies(true)
