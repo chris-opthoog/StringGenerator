@@ -2,6 +2,10 @@
 
 Use StringGenerator to generate random strings of specified length. The library uses MS cryptographic providers to produce true random selection of characters over the defined alphabet.
 
+## Status
+
+![StringGenerator](https://github.com/chris-opthoog/StringGenerator/actions/workflows/dotnet.yml/badge.svg)
+
 ## Usage
 
 ### Single Random String
