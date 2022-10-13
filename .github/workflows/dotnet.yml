@@ -26,8 +26,11 @@ jobs:
       with:
         dotnet-version: 6.0.x
 
-    - name: GitTools
-      uses: GitTools/actions@v0.9.14
+    - name: Install GitVersion
+      uses: gittools/actions/gitversion/setup@v0.9.7
+      with:
+        versionSpec: '6.x'
+        includePrerelease: true
 
     - name: Pre-build
       run: sudo chmod +x ./build.sh
