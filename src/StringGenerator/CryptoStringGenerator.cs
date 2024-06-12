@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -15,15 +14,18 @@ namespace StringGenerator {
             _rng = RandomNumberGenerator.Create();
         }
 
+        /// convenience method to get a single random string
         public static string GetNext(int length = 32, bool useSymbols = true) {
             using var g = new CryptoStringGenerator();
             var rs = g.Next(length, useSymbols);
             return rs;
         }
 
+        /// convenience method to get a batch of random strings, don't use for large amounts of strings (>100)
         public static IEnumerable<string> GetNextBatch(int batchLength = 1, int length = 32, bool useSymbols = true) {
             using var g = new CryptoStringGenerator();
-            var batch = g.NextBatch(batchLength, length, useSymbols);
+            var batch = new List<string>(g.NextBatch(batchLength, length, useSymbols));
+            
             return batch;
         }
 
@@ -47,15 +49,13 @@ namespace StringGenerator {
             return sb.ToString();
         }
 
+        /// iterator method to return batchLength random strings
         public override IEnumerable<string> NextBatch(int batchLength = 1, int length = 32, bool useSymbols = true) {
-            var rndStrings = new List<string>();
 
             for (var i = 0; i < batchLength; i++) {
                 var s = Next(length, useSymbols);
-                rndStrings.Add(s);
+                yield return s;
             }
-
-            return rndStrings.AsEnumerable();
         }
 
         protected virtual void Dispose(bool disposing) {

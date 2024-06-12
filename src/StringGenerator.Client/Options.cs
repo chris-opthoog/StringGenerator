@@ -8,7 +8,7 @@ namespace StringGenerator.Client {
         [Option('l', "length", Required = false, Default = 32, HelpText = "The length of the passwords to generate.")]
         public int Length { get; set; }
 
-        [Option('s', "symbols", HelpText = "Use symbols in password (or not). If this switch is present then symbols will be used.")]
+        [Option('s', "symbols", Required =false, Default = false, HelpText = "Use symbols in password (or not). If this switch is present then symbols will be used.")]
         public bool UseSymbols { get; set; }
     }
 }

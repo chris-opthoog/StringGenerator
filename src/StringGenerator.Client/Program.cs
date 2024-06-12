@@ -1,16 +1,18 @@
 ﻿using CommandLine;
 using System;
-using System.Linq;
 
-namespace StringGenerator.Client {
+namespace StringGenerator.Client
+{
     class Program {
         static void Main(string[] args) {
 
             Parser.Default.ParseArguments<Options>(args)
                    .WithParsed(opts => {
-                       CryptoStringGenerator.GetNextBatch(opts.BatchSize, opts.Length, opts.UseSymbols)
-                        .ToList()
-                        .ForEach(x => Console.WriteLine(x));
+                        var gen = new CryptoStringGenerator();
+                        foreach (var s in gen.NextBatch(opts.BatchSize, opts.Length, opts.UseSymbols))
+                        {
+                            Console.WriteLine(s);
+                        }
                    });
         }
     }

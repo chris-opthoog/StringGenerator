@@ -8,6 +8,7 @@ using Nuke.Common.Tooling;
 using Nuke.Common.Tools.DotNet;
 using Nuke.Common.Tools.GitVersion;
 using Nuke.Common.Utilities.Collections;
+using Serilog;
 using System;
 using System.IO;
 using System.Linq;
@@ -15,7 +16,7 @@ using static Nuke.Common.IO.FileSystemTasks;
 using static Nuke.Common.IO.PathConstruction;
 using static Nuke.Common.Tools.DotNet.DotNetTasks;
 
-[CheckBuildProjectConfigurations]
+
 [ShutdownDotNetAfterServerBuild]
 class Build : NukeBuild {
     public static int Main() => Execute<Build>(x => x.Test);
@@ -31,19 +32,25 @@ class Build : NukeBuild {
 
     [GitRepository] readonly GitRepository GitRepository;
 
-    [GitVersion(Framework = "net5.0", NoFetch = true)] readonly GitVersion GitVersion;
+    [GitVersion(Framework = "net6.0", NoFetch = true)] readonly GitVersion GitVersion;
 
     AbsolutePath SourceDirectory => RootDirectory / "src";
     AbsolutePath OutputDirectory => RootDirectory / "output";
+    AbsolutePath NugetOutputDirectory => OutputDirectory / "nuget";
+    AbsolutePath ArtifactsDirectory => OutputDirectory / "artifacts";
+
 
     Target Clean => _ => _
-        .Before(Restore)
         .Executes(() => {
-            SourceDirectory.GlobDirectories("**/bin", "**/obj").ForEach(DeleteDirectory);
-            EnsureCleanDirectory(OutputDirectory);
+
+            Log.Information(NugetOutputDirectory);
+
+            SourceDirectory.GlobDirectories("**/bin", "**/obj").ForEach(x => x.DeleteDirectory());
+            OutputDirectory.CreateOrCleanDirectory();
         });
 
     Target Restore => _ => _
+        .DependsOn(Clean)
         .Executes(() => {
             DotNetRestore(s => s
                 .SetProjectFile(Solution));
@@ -76,21 +83,11 @@ class Build : NukeBuild {
             );
         });
 
-    
-    Target Benchmark => _ => _
-        .DependsOn(Test)
-        .Executes(() =>    {
-
-            var a = Path.Combine(Path.GetDirectoryName(Solution.GetProject("StringGenerator.Benchmarks").Path), $"bin{Path.DirectorySeparatorChar}Release{Path.DirectorySeparatorChar}net5.0{Path.DirectorySeparatorChar}StringGenerator.Benchmarks.dll");
-            Logger.Info(a);
-
-            ProcessTasks.StartProcess(a).AssertWaitForExit();
-
-    });
-
     Target Pack => _ => _
         .DependsOn(Test)
         .Executes(() => {
+
+            NugetOutputDirectory.CreateOrCleanDirectory();
 
             DotNetPack(s => s
               .SetProject(Solution.GetProject("StringGenerator"))
@@ -103,7 +100,22 @@ class Build : NukeBuild {
               .EnableNoBuild()
               .EnableNoRestore()
               .SetNoDependencies(true)
-              .SetOutputDirectory(OutputDirectory));
+              .SetOutputDirectory(NugetOutputDirectory));
+        });
+
+    Target Dist => _ => _
+        .DependsOn(Test)
+        .Executes(() => {
+
+            ArtifactsDirectory.CreateOrCleanDirectory();
+
+            DotNetPublish(s => s
+                .SetProject(Solution.GetProject("StringGenerator.Client"))
+                .SetConfiguration(Configuration)
+                .SetOutput(ArtifactsDirectory)
+                .EnableNoBuild()
+                .EnableNoRestore()
+            );
         });
 
     Target Push => _ => _
@@ -112,9 +124,8 @@ class Build : NukeBuild {
        .Requires(() => Configuration.Equals(Configuration.Release))
        .Executes(() => {
 
-           GlobFiles(OutputDirectory, "*.nupkg")
-               .NotEmpty()
-               .Where(x => !x.EndsWith("symbols.nupkg"))
+            NugetOutputDirectory.GlobFiles("*.nupkg")
+               .Where(x => !x.Contains("symbols.nupkg"))
                .ForEach(x => {
                    DotNetNuGetPush(s => s
                        .SetTargetPath(x)
